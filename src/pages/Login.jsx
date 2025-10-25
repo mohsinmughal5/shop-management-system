@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
   const { login } = useAuth()
@@ -21,6 +22,10 @@ const Login = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white shadow-md rounded p-6 w-80"
       >
+        <div className='bg-amber-200 rounded-4xl mt-2 mb-2 p-2'>
+          <h3 className='text-xl font-extrabold mb-auto mt-auto text-amber-600 text-center'>
+            Store Managment System </h3>
+        </div>
         <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
 
         <input
@@ -52,7 +57,13 @@ const Login = () => {
         >
           Login
         </button>
+         <footer className="text-center text-gray-500 text-sm mt-6 border-t pt-3">
+        Developed by: <a href='https://mohsin-portfolio-ten.vercel.app/' className="font-semibold text-blue-600 hover:underline cursor-pointer">Ch. Mohsin Khan</a>
+        <br />
+        <span className="text-xs">Software Developer • 2025</span>
+      </footer>
       </form>
+     
     </div>
   )
 }

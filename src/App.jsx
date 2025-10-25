@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import Products from './pages/Products'
 import Sales from './pages/Sales'
 import Login from './pages/Login'
+import Footer from './components/Footer'
 
 const App = () => {
   const { isLoggedIn } = useAuth()
@@ -26,6 +27,7 @@ const App = () => {
                 <Route path="*" element={<Navigate to="/dashboard" />} />
               </Routes>
             </main>
+            <Footer />
           </div>
         </div>
       ) : (

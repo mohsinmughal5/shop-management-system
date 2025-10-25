@@ -18,7 +18,7 @@ const Sidebar = () => {
         Store Admin
       </div>
 
-      <nav className="flex-grow">
+      <nav className="grow">
         {menuItems.map((item) => (
           <NavLink
             key={item.name}
