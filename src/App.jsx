@@ -45,16 +45,15 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
-import Sidebar from './components/Sidebar'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import Sidebar from './components/layout/Sidebar'
+import Header from './components/layout/Header'
+import Footer from './components/layout/Footer'
 import Dashboard from './pages/Dashboard'
 import Products from './pages/Products'
 import Sales from './pages/Sales'
 import Login from './pages/Login'
-import ProtectedRoute from './components/ProtectedRoute'
+import ProtectedRoute from './components/layout/ProtectedRoute'
 import InventoryDashboard from './pages/InventoryDashboard'
-
 
 const App = () => {
   const { isLoggedIn } = useAuth()

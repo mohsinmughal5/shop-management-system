@@ -53,7 +53,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { Home, Package, ShoppingCart, LogOut } from 'lucide-react'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../../context/AuthContext'
 
 const Sidebar = () => {
   const { logout, userRole } = useAuth()
