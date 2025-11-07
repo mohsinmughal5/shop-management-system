@@ -79,6 +79,12 @@ const Login = () => {
           >
             Login
           </button>
+          <p className="text-sm text-center mt-2">
+            <a href="/reset-password" className="text-blue-500 hover:underline">
+                  Forgot your password?
+  </a>
+</p>
+
 
           <footer className="text-center text-gray-500 text-sm mt-6 border-t pt-3">
             Developed by:{' '}
