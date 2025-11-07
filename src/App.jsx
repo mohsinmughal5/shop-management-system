@@ -54,12 +54,16 @@ import Sales from './pages/Sales'
 import Login from './pages/Login'
 import ProtectedRoute from './components/layout/ProtectedRoute'
 import InventoryDashboard from './pages/InventoryDashboard'
+import ResetPassword from './pages/ResetPassword'
+import ChangePassword from './pages/ChangePassword'
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   const { isLoggedIn } = useAuth()
 
   return (
     <Router>
+      <Toaster position="top-right" />
       {isLoggedIn ? (
         <div className="flex">
           <Sidebar />
@@ -68,6 +72,7 @@ const App = () => {
             <main className="mt-20 p-6 bg-gray-50 min-h-screen">
               <Routes>
                 {/* Dashboard - all roles can access */}
+                
                 <Route
                   path="/dashboard"
                   element={
@@ -106,6 +111,17 @@ const App = () => {
 />
 
 
+  <Route
+    path="/change-password"
+    element={
+      <ProtectedRoute allowedRoles={['admin', 'sales', 'inventory']}>
+        <ChangePassword />
+      </ProtectedRoute>
+    }
+  />
+
+
+
                 {/* Default route */}
                 <Route path="*" element={<Navigate to="/dashboard" />} />
               </Routes>
@@ -117,7 +133,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="*" element={<Navigate to="/" />} />
-          
+          <Route path="/reset-password" element={<ResetPassword />} /> 
         </Routes>
       )}
     </Router>

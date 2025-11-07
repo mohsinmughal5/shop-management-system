@@ -1,32 +1,55 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { useAuth } from '../context/AuthContext'
+// src/pages/Login.jsx
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../context/AuthContext';
+import { users } from '../config/user';
+import { useNavigate, Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Login = () => {
-  const { login } = useAuth()
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
   const onSubmit = (data) => {
-    console.log('Login Data:', data)
-    login(data.role)
-  }
+    setLoading(true);
+
+    setTimeout(() => {
+      const user = users.find(
+        (u) => u.username === data.username && u.password === data.password
+      );
+
+      if (user) {
+        login(user.role);
+        toast.success('Login successful!');
+        navigate(
+          user.role === 'admin'
+            ? '/dashboard'
+            : user.role === 'inventory'
+            ? '/inventory'
+            : '/sales'
+        );
+      } else {
+        toast.error('Invalid username or password');
+      }
+
+      setLoading(false);
+    }, 1000); // Simulate loading delay
+  };
 
   return (
     <div
       className="flex justify-center items-center min-h-screen bg-cover bg-center"
-      style={{
-        backgroundImage: "url('/public/login-bg.jpg')",
-      }}
+      style={{ backgroundImage: "url('/login-bg.jpg')" }}
     >
       <div className="bg-white/90 backdrop-blur-sm shadow-2xl rounded-2xl p-10 w-full md:w-1/2 lg:w-1/3 h-full flex justify-center items-center">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-80 md:w-96"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="w-80 md:w-96">
           <div className="bg-amber-200 rounded-xl mb-4 p-3 shadow-sm">
             <h3 className="text-xl font-extrabold text-amber-700 text-center">
               Store Management System
@@ -37,16 +60,18 @@ const Login = () => {
             Login
           </h2>
 
+          {/* Username */}
           <input
-            type="email"
-            placeholder="Email"
-            {...register('email', { required: 'Email is required' })}
+            type="text"
+            placeholder="Username"
+            {...register('username', { required: 'Username is required' })}
             className="border p-2 w-full mb-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          {errors.email && (
-            <p className="text-red-500 text-sm mb-2">{errors.email.message}</p>
+          {errors.username && (
+            <p className="text-red-500 text-sm mb-2">{errors.username.message}</p>
           )}
 
+          {/* Password */}
           <input
             type="password"
             placeholder="Password"
@@ -54,53 +79,46 @@ const Login = () => {
               required: 'Password is required',
               minLength: { value: 6, message: 'Min length is 6' },
             })}
-            className="border p-2 w-full mb-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="border p-2 w-full mb-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           {errors.password && (
             <p className="text-red-500 text-sm mb-2">{errors.password.message}</p>
           )}
 
-          <select
-            {...register('role', { required: 'Role is required' })}
-            className="border p-2 w-full mb-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            <option value="">Select Role</option>
-            <option value="admin">Admin</option>
-            <option value="sales">Sales</option>
-            <option value="inventory">Inventory Manager</option>
-          </select>
-          {errors.role && (
-            <p className="text-red-500 text-sm mb-2">{errors.role.message}</p>
-          )}
-
+          {/* Login Button */}
           <button
             type="submit"
+            disabled={loading}
             className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700 transition"
           >
-            Login
+            {loading ? 'Logging in...' : 'Login'}
           </button>
-          <p className="text-sm text-center mt-2">
-            <a href="/reset-password" className="text-blue-500 hover:underline">
-                  Forgot your password?
-  </a>
-</p>
 
+          {/* Reset Password Link */}
+          <p className="text-sm text-center mt-3">
+            <Link to="/reset-password" className="text-blue-600 hover:underline">
+              Forgot your password?
+            </Link>
+          </p>
 
+          {/* Footer */}
           <footer className="text-center text-gray-500 text-sm mt-6 border-t pt-3">
             Developed by:{' '}
             <a
               href="https://mohsin-portfolio-ten.vercel.app/"
-              className="font-semibold text-blue-600 hover:underline cursor-pointer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
             >
-              Ch. Mohsin Khan
+              Ch. Mohsin Khan 
             </a>
-            <br />
-            <span className="text-xs">Software Developer • 2025</span>
+            < br/>
+            <span className="text-xs"> Software Developer • 2025</span>
           </footer>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
