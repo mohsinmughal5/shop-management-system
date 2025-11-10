@@ -110,7 +110,7 @@ const Login = () => {
               rel="noopener noreferrer"
               className="text-blue-600 hover:underline"
             >
-              Ch. Mohsin Khan 
+              Mohat
             </a>
             < br/>
             <span className="text-xs"> Software Developer • 2025</span>
