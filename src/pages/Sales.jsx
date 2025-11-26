@@ -20,7 +20,7 @@ const Sales = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('https://fakestoreapi.com/products')
+        const res = await fetch('http://localhost:5000/api/sales')
         const data = await res.json()
         setProducts(data)
       } catch (err) {
